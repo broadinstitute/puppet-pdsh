@@ -1,0 +1,70 @@
+<%- |
+  Stdlib::Absolutepath $ca_file,
+  Stdlib::Absolutepath $group_dir,
+  Stdlib::Absolutepath $hostcert,
+  Stdlib::Absolutepath $hostprivkey,
+  String $puppetdb,
+| -%>
+#!/opt/puppetlabs/puppet/bin/ruby
+# THIS FILE IS AUTOMATICALLY DISTRIBUTED BY PUPPET.
+# ANY CHANGES WILL BE OVERWRITTEN.
+
+require "net/http"
+require "json"
+
+def get_url(uri, query, timeout = 10)
+  req = Net::HTTP::Get.new(uri,  {'Accept' => 'application/json', 'Content-Type' => 'application/json'})
+  client = Net::HTTP.new(uri.hostname, uri.port)
+
+  client.open_timeout = timeout
+  client.read_timeout = timeout
+  if uri.scheme == "https"
+    tmp = File.read "<%= $hostcert %>"
+    client.cert = OpenSSL::X509::Certificate.new tmp
+    tmp = File.read "<%= $hostprivkey %>"
+    client.key = OpenSSL::PKey::RSA.new tmp
+    client.use_ssl = true
+    client.ca_file = "<%= $ca_file %>"
+    client.verify_mode = OpenSSL::SSL::VERIFY_PEER
+  end
+
+  req.set_form_data('query' => query)
+  res = client.start do |http|
+    http.request(req)
+  end
+
+  case res
+  when Net::HTTPRedirection
+    return get_url(URI(res["location"]), query, timeout)
+  else
+    return res
+  end
+end
+
+if ARGV.length < 2
+  puts "Too few arguments"
+  exit
+end
+
+PUPPETDB="<%= $puppetdb %>"
+OUTPUT_PATH = "<%= $group_dir %>/#{ARGV[0]}"
+QUERY="#{ARGV[1]}"
+
+uri = URI("https://#{PUPPETDB}:8081/pdb/query/v4/nodes")
+res = get_url(uri, QUERY, 180)
+nodes = JSON.parse(res.body)
+
+if ! nodes
+    exit
+end
+
+if nodes.length < 1
+  exit
+end
+
+out = File.open(OUTPUT_PATH, "w")
+nodes.each do |node|
+  out.write(node["certname"])
+  out.write("\n")
+end
+out.close
