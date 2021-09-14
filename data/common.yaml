@@ -1,0 +1,3 @@
+---
+pdsh::puppet::output_dir: '/etc/dsh/group'
+pdsh::puppet::puppetdb: ~
