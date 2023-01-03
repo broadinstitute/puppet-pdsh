@@ -2,12 +2,18 @@
   "name": "broadinstitute-pdsh",
   "version": "0.1.0",
   "author": "broadinstitute",
-  "summary": "",
-  "license": "BSD 3-Clause",
-  "source": "",
+  "summary": "PDSH Puppet module",
+  "license": "BSD-3-Clause",
+  "source": "https://github.com/broadinstitute/puppet-pdsh",
   "dependencies": [
-    {"name": "puppet-cron", "version_requirement": ">= 1.0.0 < 3.0.0"},
-    {"name": "puppetlabs-stdlib", "version_requirement": ">= 4.13.0 < 8.0.0"}
+    {
+      "name": "puppet-cron",
+      "version_requirement": ">= 1.0.0 < 3.0.0"
+    },
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 4.13.0 < 8.0.0"
+    }
   ],
   "operatingsystem_support": [
     {
@@ -53,7 +59,7 @@
       "version_requirement": ">= 6.21.0 < 8.0.0"
     }
   ],
-  "pdk-version": "2.0.0",
-  "template-url": "https://github.com/puppetlabs/pdk-templates#2.0.0",
-  "template-ref": "2.0.0-0-ge838f1d"
+  "pdk-version": "2.5.0",
+  "template-url": "https://github.com/puppetlabs/pdk-templates#2.5.0",
+  "template-ref": "tags/2.5.0-0-g369d483"
 }
