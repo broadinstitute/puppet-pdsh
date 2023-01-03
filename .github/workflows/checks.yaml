@@ -1,0 +1,119 @@
+---
+name: 'checks'
+
+'on':
+  pull_request:
+    branches:
+      - 'main'
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  static-analysis:
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: 'Checkout repo'
+        uses: 'actions/checkout@v3'
+
+      - name: 'Set up Ruby'
+        uses: 'ruby/setup-ruby@v1.133.0'
+        with:
+          ruby-version: '2.7'
+
+      - name: Get full Ruby version
+        id: full-ruby-version
+        run: |
+          ruby -e 'puts RUBY_VERSION' | awk '{print "ruby_version="$1}' >> $GITHUB_ENV
+
+      - name: 'Cache Ruby'
+        uses: 'actions/cache@v3'
+        with:
+          path: 'vendor/bundle'
+          key: ${{ runner.os }}-${{ env.ruby_version }}-v1-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.ruby_version }}-v1-gems-
+
+      - name: 'Update RubyGems and install bundler'
+        run: |
+          gem update --system
+          gem install bundler
+          gem --version
+          bundler --version
+
+      - name: 'Install ruby dependencies'
+        run: |
+          bundle config path vendor/bundle
+          bundle config set with 'development'
+          bundle install --jobs 4 --retry 3
+
+      - name: 'Run static analysis'
+        run: |
+          bundle exec rake check:symlinks
+          bundle exec rake check:git_ignore
+          bundle exec rake check:dot_underscore
+          bundle exec rake check:test_file
+          bundle exec rake rubocop
+          bundle exec rake syntax
+          bundle exec rake lint
+          bundle exec rake metadata_lint
+
+  unit-tests:
+    runs-on: 'ubuntu-latest'
+
+    strategy:
+      matrix:
+        puppet:
+          - '< 7.0.0'
+          - '< 8.0.0'
+        ruby:
+          - '2.6'
+          - '2.7'
+    steps:
+      - name: 'Checkout repo'
+        uses: 'actions/checkout@v3'
+
+      - name: 'Set up Ruby'
+        uses: 'ruby/setup-ruby@v1.133.0'
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Get full Ruby version
+        id: full-ruby-version
+        run: |
+          ruby -e 'puts RUBY_VERSION' | awk '{print "ruby_version="$1}' >> $GITHUB_ENV
+
+      - name: 'Cache Ruby'
+        uses: 'actions/cache@v3'
+        with:
+          path: 'vendor/bundle'
+          key: ${{ runner.os }}-${{ env.ruby_version }}-v1-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.ruby_version }}-v1-gems-
+
+      - name: 'Update RubyGems and install bundler'
+        run: |
+          gem update --system
+          gem install bundler
+          gem --version
+          bundler --version
+
+      - name: 'Install ruby dependencies'
+        env:
+          PUPPET_GEM_VERSION: ${{ matrix.puppet }}
+        run: |
+          bundle config path vendor/bundle
+          bundle config set with 'development'
+          bundle install --jobs 4 --retry 3
+
+      - name: 'Versions'
+        run: |
+          ruby --version
+          bundle exec puppet --version
+
+      - name: 'Install fixtures'
+        run: 'bundle exec rake spec_prep'
+
+      - name: 'Run unit tests'
+        run: 'bundle exec rake spec'

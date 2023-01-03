@@ -12,7 +12,7 @@
 #   Whether this group should be present or absent.
 #   (default: 'present')
 #
-define pdsh::puppet_group(
+define pdsh::puppet_group (
   String $query,
   Enum['absent', 'present'] $ensure = 'present',
 ) {

@@ -10,7 +10,7 @@
 class pdsh (
   Stdlib::Absolutepath $config_dir,
   Stdlib::Absolutepath $group_dir,
-){
+) {
   if ! $group_dir {
     fail('The group directory cannot be empty')
   }

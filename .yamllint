@@ -1,0 +1,11 @@
+---
+extends: default
+ignore: |
+  spec/
+  .rubocop.yml
+rules:
+  line-length:
+    max: 140
+    level: warning
+  indentation:
+    spaces: 2

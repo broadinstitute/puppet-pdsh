@@ -1,0 +1,2 @@
+---
+pdsh::puppet::puppetdb: 'puppetdb.example.org'

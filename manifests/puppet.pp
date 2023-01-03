@@ -18,20 +18,23 @@
 #   String The hostname of the PuppetDB server to use.
 # @param queries
 #   Hash of queries to be used in creating pdsh::puppet_group resources.
-class pdsh::puppet(
+class pdsh::puppet (
   String $puppetdb,
   Hash $queries = {},
 ) {
-  $ca_file = $::localcacert
+  $ca_file = $facts['localcacert']
 
   file { '/usr/local/sbin/pdsh_group.rb':
-    content => epp('pdsh/puppet_group.rb.epp', {
-      ca_file     => $::localcacert,
-      group_dir   => $pdsh::group_dir,
-      hostcert    => $::puppet_settings['main']['hostcert'],
-      hostprivkey => $::puppet_settings['main']['hostprivkey'],
-      puppetdb    => $puppetdb,
-    }),
+    content => epp(
+      'pdsh/puppet_group.rb.epp',
+      {
+        ca_file     => $facts['localcacert'],
+        group_dir   => $pdsh::group_dir,
+        hostcert    => $facts['puppet_settings']['main']['hostcert'],
+        hostprivkey => $facts['puppet_settings']['main']['hostprivkey'],
+        puppetdb    => $puppetdb,
+      }
+    ),
     group   => 'root',
     mode    => '0755',
     owner   => 'root',
