@@ -22,13 +22,13 @@ class pdsh::puppet (
   String $puppetdb,
   Hash $queries = {},
 ) {
-  $ca_file = $facts['localcacert']
+  $ca_file = $facts['puppet_settings']['main']['localcacert']
 
   file { '/usr/local/sbin/pdsh_group.rb':
     content => epp(
       'pdsh/puppet_group.rb.epp',
       {
-        ca_file     => $facts['localcacert'],
+        ca_file     => $ca_file,
         group_dir   => $pdsh::group_dir,
         hostcert    => $facts['puppet_settings']['main']['hostcert'],
         hostprivkey => $facts['puppet_settings']['main']['hostprivkey'],

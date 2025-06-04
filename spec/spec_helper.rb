@@ -78,7 +78,8 @@ add_custom_fact :localcacert, '/etc/puppetlabs/puppet/ssl/ca_crl.pem'
 custom_settings = {
   'main' => {
     'hostcert' => '/etc/puppetlabs/puppet/ssl/ca_crl.pem',
-    'hostprivkey' => '/etc/puppetlabs/puppet/ssl/private_keys/host.pem'
+    'hostprivkey' => '/etc/puppetlabs/puppet/ssl/private_keys/host.pem',
+    'localcacert' => '/etc/puppetlabs/puppet/ssl/certs/ca.pem',
   }
 }
 add_custom_fact :puppet_settings, custom_settings
