@@ -19,37 +19,43 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "7"
+        "8",
+        "9"
       ]
     },
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
-        "7"
+        "8",
+        "9"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "8"
+        "8",
+        "9"
       ]
     },
     {
       "operatingsystem": "Scientific",
       "operatingsystemrelease": [
-        "7"
+        "8",
+        "9"
       ]
     },
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "10"
+        "11",
+        "12"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "18.04"
+        "22.04",
+        "24.04"
       ]
     }
   ],
@@ -59,7 +65,7 @@
       "version_requirement": ">= 6.21.0 < 8.0.0"
     }
   ],
-  "pdk-version": "3.2.0",
-  "template-url": "https://github.com/puppetlabs/pdk-templates#3.2.0.2",
-  "template-ref": "tags/3.2.0.2-0-gae3cba3"
+  "pdk-version": "3.4.0",
+  "template-url": "https://github.com/puppetlabs/pdk-templates#3.5.0",
+  "template-ref": "tags/3.5.0-0-ged6c77a"
 }
