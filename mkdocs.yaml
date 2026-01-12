@@ -1,0 +1,8 @@
+---
+site_name: Puppet PDSH Module
+
+nav:
+  - Home: README.md
+
+plugins:
+  - techdocs-core

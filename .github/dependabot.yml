@@ -2,21 +2,21 @@
 version: 2
 updates:
   # We use PDK, so don't auto-update Ruby dependencies
-  # - package-ecosystem: 'bundler'
-  #   directory: '/'
+  # - package-ecosystem: bundler
+  #   directory: /
   #   groups:
   #     bundler:
   #       patterns:
   #         - '*'
   #   schedule:
-  #     # Check for updates to Ruby gems every week
-  #     interval: 'weekly'
-  - package-ecosystem: 'github-actions'
-    directory: '/'
+  #     # Check for updates to Ruby gems every month
+  #     interval: monthly
+  - package-ecosystem: github-actions
+    directory: /
     groups:
       actions:
         patterns:
-          - '*'
+          - "*"
     schedule:
-      # Check for updates to GitHub Actions every week
-      interval: 'weekly'
+      # Check for updates to GitHub Actions every month
+      interval: monthly

@@ -1,4 +1,4 @@
 ---
-pdsh::config_dir: '/etc/dsh'
-pdsh::group_dir: '/etc/dsh/group'
+pdsh::config_dir: /etc/dsh
+pdsh::group_dir: /etc/dsh/group
 pdsh::puppet::puppetdb: ~
