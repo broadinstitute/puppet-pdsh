@@ -6,12 +6,13 @@
 
 ### Classes
 
-* [`pdsh`](#pdsh): Installs and configures the pdsh tool
-* [`pdsh::puppet`](#pdshpuppet): Set up PuppetDB-based pdsh groups
+- [`pdsh`](#pdsh): Installs and configures the pdsh tool
+- [`pdsh::puppet`](#pdsh--puppet): Set up PuppetDB-based pdsh groups
 
 ### Defined types
 
-* [`pdsh::puppet_group`](#pdshpuppet_group): Create a group of hosts using the `pdsh_group.rb` script
+- [`pdsh::puppet_group`](#pdsh--puppet_group): Create a group of hosts using the
+  `pdsh_group.rb` script
 
 ## Classes
 
@@ -23,24 +24,24 @@ Installs and configures the pdsh tool
 
 The following parameters are available in the `pdsh` class:
 
-* [`config_dir`](#config_dir)
-* [`group_dir`](#group_dir)
+- [`config_dir`](#-pdsh--config_dir)
+- [`group_dir`](#-pdsh--group_dir)
 
-##### <a name="config_dir"></a>`config_dir`
+##### <a name="-pdsh--config_dir"></a>`config_dir`
 
 Data type: `Stdlib::Absolutepath`
 
-Stdlib::Absolutepath The configuration directory for pdsh.
-(default: `/etc/dsh`).
+Stdlib::Absolutepath The configuration directory for pdsh. (default:
+`/etc/dsh`).
 
-##### <a name="group_dir"></a>`group_dir`
+##### <a name="-pdsh--group_dir"></a>`group_dir`
 
 Data type: `Stdlib::Absolutepath`
 
 Stdlib::Absolutepath The directory where group files for pdsh will be written.
 (default: `/etc/dsh/group`).
 
-### <a name="pdshpuppet"></a>`pdsh::puppet`
+### <a name="pdsh--puppet"></a>`pdsh::puppet`
 
 Set up PuppetDB-based pdsh groups
 
@@ -67,16 +68,16 @@ class { 'pdsh::puppet'
 
 The following parameters are available in the `pdsh::puppet` class:
 
-* [`puppetdb`](#puppetdb)
-* [`queries`](#queries)
+- [`puppetdb`](#-pdsh--puppet--puppetdb)
+- [`queries`](#-pdsh--puppet--queries)
 
-##### <a name="puppetdb"></a>`puppetdb`
+##### <a name="-pdsh--puppet--puppetdb"></a>`puppetdb`
 
 Data type: `String`
 
 String The hostname of the PuppetDB server to use.
 
-##### <a name="queries"></a>`queries`
+##### <a name="-pdsh--puppet--queries"></a>`queries`
 
 Data type: `Hash`
 
@@ -86,7 +87,7 @@ Default value: `{}`
 
 ## Defined types
 
-### <a name="pdshpuppet_group"></a>`pdsh::puppet_group`
+### <a name="pdsh--puppet_group"></a>`pdsh::puppet_group`
 
 Create a group of hosts using the `pdsh_group.rb` script
 
@@ -105,20 +106,20 @@ pdsh::puppet_group {'rhel6':
 
 The following parameters are available in the `pdsh::puppet_group` defined type:
 
-* [`query`](#query)
-* [`ensure`](#ensure)
+- [`query`](#-pdsh--puppet_group--query)
+- [`ensure`](#-pdsh--puppet_group--ensure)
 
-##### <a name="query"></a>`query`
+##### <a name="-pdsh--puppet_group--query"></a>`query`
 
 Data type: `String`
 
-String The query to pass to the `pdsh_group.rb` script to be used in querying PuppetDB.
+String The query to pass to the `pdsh_group.rb` script to be used in querying
+PuppetDB.
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-pdsh--puppet_group--ensure"></a>`ensure`
 
 Data type: `Enum['absent', 'present']`
 
-Whether this group should be present or absent.
-(default: 'present')
+Whether this group should be present or absent. (default: 'present')
 
 Default value: `'present'`

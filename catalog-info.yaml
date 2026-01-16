@@ -2,17 +2,17 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: broadinstitute/puppet-pdsh
+  description: Puppet module to control the pdsh application
   name: puppet-pdsh
-  title: puppet-pdsh
-  description: "Puppet module to control the pdsh application"
   tags:
     - bits
     - bits-tools
-    - puppet
     - pdsh
-  annotations:
-    github.com/project-slug: broadinstitute/puppet-pdsh
-    backstage.io/techdocs-ref: dir:.
+    - puppet
+  title: puppet-pdsh
 spec:
   domain: infrastructure-tools
   lifecycle: production

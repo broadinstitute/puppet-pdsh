@@ -3,27 +3,25 @@ appveyor.yml:
   delete: true
 .gitignore:
   required:
-    - '/.librarian'
-    - '/.tmp'
-    - '/spec/fixtures/work-dir'
+    - "/.librarian"
+    - "/.tmp"
+    - "/spec/fixtures/work-dir"
 .gitlab-ci.yml:
   delete: true
 Rakefile:
-  changelog_project: 'puppet-pdsh'
-  changelog_user: 'broadinstitute'
-  changelog_version_tag_pattern: '%s'
+  changelog_project: "puppet-pdsh"
+  changelog_user: "broadinstitute"
+  changelog_version_tag_pattern: "%s"
   extra_disabled_lint_checks:
-    - '80chars'
-    - 'autoloader_layout'
-    - 'puppet_url_without_modules'
+    - "80chars"
+    - "autoloader_layout"
+    - "puppet_url_without_modules"
   requires:
-    - 'puppet-lint/tasks/puppet-lint'
+    - "puppet-lint/tasks/puppet-lint"
 Gemfile:
   optional:
-    ':development':
-      - gem: 'concurrent-ruby'
-        version: '< 1.2.0'
-      - gem: 'pdk'
+    ":development":
+      - gem: "github_changelog_generator"
 .travis.yml:
   delete: true
 .yardopts:
@@ -31,8 +29,8 @@ Gemfile:
 spec/default_facts.yml:
   delete: true
 spec/spec_helper.rb:
-  hiera_config: 'spec/fixtures/hiera.yaml'
-  mock_with: ':rspec'
+  hiera_config: "spec/fixtures/hiera.yaml"
+  mock_with: ":rspec"
 spec_overrides: |
   add_custom_fact :localcacert, '/etc/puppetlabs/puppet/ssl/ca_crl.pem'
   custom_settings = {
